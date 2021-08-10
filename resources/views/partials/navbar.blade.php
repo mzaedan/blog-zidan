@@ -7,13 +7,16 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link {{ ($title === "Home") ? 'active' : '' }}" href="/coba-laravel/public">Home</a>
+            <a class="nav-link {{ ($active === "home") ? 'active' : '' }}" href={{ url('/') }}>Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link {{ ($title === "About") ? 'active' : '' }}" href="/coba-laravel/public/about">About</a>
+            <a class="nav-link {{ ($active === "about") ? 'active' : '' }}" href={{ url('/about') }}>About</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link {{ ($title === "Blog") ? 'active' : '' }}" href="/coba-laravel/public/blog">Blog</a>
+            <a class="nav-link {{ ($active === "blog") ? 'active' : '' }}" href={{ url('/blog') }}>Blog</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {{ ($active === "categories") ? 'active' : '' }}" href={{ url('/categories') }}>Categories</a>
           </li>
         </ul>
       </div>

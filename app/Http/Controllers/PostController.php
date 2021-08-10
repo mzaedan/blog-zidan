@@ -10,10 +10,15 @@ class PostController extends Controller
 {
     public function index()
     {
+        // if(request('search')) {
+        //     $posts->where('title', 'like', '%' . request('search'). '%')
+        //             ->orWhere('body', 'like', '%'. request('search'). '%');
+        // }
+
         return view ('posts', [
             "title" => "All Posts",
-            // "posts" => Post::all()
-            "posts" => Post::with(['user','category'])->latest()->get()
+            "active" => 'posts',
+            "posts" => Post::latest()->filter(request(['search', 'category']))->get()
         ]);
 
     }
@@ -22,6 +27,7 @@ class PostController extends Controller
     {
         return view('post', [
             "title" => "Single Post",
+            "active" => 'posts',
             "post" => $post
         ]);  
     }
