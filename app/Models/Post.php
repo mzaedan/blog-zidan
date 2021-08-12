@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+
 class Post extends Model
 {
     use HasFactory;
@@ -24,8 +25,23 @@ class Post extends Model
 
             return $query->where('title', 'like', '%' .$search . '%')
                         ->orWhere('body', 'like', '%'. $search . '%');
+        });
+
+        $query->when($filters['category']?? false, function($query, $category){
+
+            return $query->whereHas('Category', function($query) use ($category){
+                $query->where('slug', $category);
+            });
 
         });
+
+        $query->when($filters['user'] ?? false, fn($query, $user) => 
+            $query->whereHas('user', fn($query) =>          
+                $query->where('username', $user)
+
+
+            ) 
+        );
     }
 
     public function category()

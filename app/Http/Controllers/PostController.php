@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\Category;
+use App\Models\User;
 
 
 class PostController extends Controller
@@ -15,10 +17,24 @@ class PostController extends Controller
         //             ->orWhere('body', 'like', '%'. request('search'). '%');
         // }
 
+        $title = '';
+        if(request('category')){
+            $category = Category::firstWhere('slug', request('category'));
+            $title = ' in ' . $category->name;
+        }
+
+        if(request('user')) {
+            $author = User::firstWhere('username', request('user'));
+            $title = ' by ' . $author->name;
+        }
+
         return view ('posts', [
-            "title" => "All Posts",
+            "title" => "All Posts" . $title,
             "active" => 'posts',
-            "posts" => Post::latest()->filter(request(['search', 'category']))->get()
+            "posts" => Post::latest()->filter(request(['search', 'category', 'user']))
+            ->paginate(7)
+
+
         ]);
 
     }
