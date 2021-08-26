@@ -22,7 +22,7 @@
 </div>
 
 <div class="d-flex justify-content-end">
-   {{ $posts->links('pagination::bootstrap-4') }}
+   {{ $categories->links('pagination::bootstrap-4') }}
 </div>
           
 @endsection
