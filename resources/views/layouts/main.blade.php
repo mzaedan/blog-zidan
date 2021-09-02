@@ -22,7 +22,7 @@
     @include('partials.navbar')
 
     <div class="container mt-4">
-        @yield('content')
+      @yield('content')
     </div>
 
     <!-- Optional JavaScript; choose one of the two! -->
